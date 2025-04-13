@@ -3,6 +3,18 @@ export default defineNuxtConfig({
   modules: ['@nuxt/ui', '@nuxt/eslint', '@nuxtjs/mdc'],
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
+  mdc: {
+    highlight: {
+      theme: 'material-theme-palenight',
+      langs: [
+        'html',
+        'markdown',
+        'vue',
+        'typescript',
+        'javascript',
+      ],
+    },
+  },
   runtimeConfig: {
     openaiApiKey: '',
   },
