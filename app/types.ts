@@ -12,3 +12,8 @@ export interface Chat {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface Project {
+  id: string;
+  name: string;
+}
