@@ -8,7 +8,7 @@ export default function useChats() {
 
     const chat = {
       id,
-      title: 'New Chat',
+      title: `Chat ${id}`,
       messages: [],
       projectId: options.projectId,
       createdAt: new Date(),
