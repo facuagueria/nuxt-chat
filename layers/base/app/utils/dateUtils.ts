@@ -1,4 +1,4 @@
-import type { Chat } from '#layers/chat/app/types';
+import type { Chat } from '#layers/chat/shared/types/types';
 
 export function isWithinDays(
   date: Date,

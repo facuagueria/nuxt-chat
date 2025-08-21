@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from '@nuxt/ui';
-import type { Project, Chat } from '#layers/chat/app/types';
+import type { Project, Chat } from '#layers/chat/shared/types/types';
 import { filterChatsByDateRange } from '#layers/base/app/utils/dateUtils';
 
 defineProps<{
@@ -75,7 +75,6 @@ function formatChatItem(chat: Chat): NavigationMenuItem {
     label: chat.title || 'Untitled Chat',
     to: `/chats/${chat.id}`,
     active: route.params.id === chat.id,
-    defaultOpen: true,
   };
 }
 
@@ -90,40 +89,37 @@ async function handleCreateChat() {
     :class="{ '-translate-x-full': !isOpen }"
   >
     <div
+      v-if="projectItems.length > 0"
+      class="mb-4 overflow-auto p-4 border-b border-(--ui-border)"
+    >
+      <div class="flex justify-between items-center mb-2">
+        <h2
+          class="text-sm font-semibold text-(--ui-text-muted)"
+        >
+          Projects
+        </h2>
+      </div>
+      <UNavigationMenu
+        orientation="vertical"
+        class="w-full mb-4"
+        :items="projectItems"
+        default-open
+      />
+      <UButton
+        size="sm"
+        color="neutral"
+        variant="soft"
+        icon="i-heroicons-plus-small"
+        class="mt-2 w-full"
+        @click="handleCreateProject"
+      >
+        New Project
+      </UButton>
+    </div>
+    <div
       v-if="chatsWithoutProject.length > 0"
       class="overflow-y-auto p-4"
     >
-      <div
-        v-if="projectItems.length > 0"
-        class="mb-4 overflow-auto p-4 border-b border-(--ui-border)"
-      >
-        <div class="flex justify-between items-center mb-2">
-          <h2
-            class="text-sm font-semibold text-(--ui-text-muted)"
-          >
-            Projects
-          </h2>
-        </div>
-
-        <UNavigationMenu
-          orientation="vertical"
-          class="w-full mb-4"
-          :items="projectItems"
-          default-open
-        />
-
-        <UButton
-          size="sm"
-          color="neutral"
-          variant="soft"
-          icon="i-heroicons-plus-small"
-          class="mt-2 w-full"
-          @click="handleCreateProject"
-        >
-          New Project
-        </UButton>
-      </div>
-
       <div
         v-if="todayChats.length > 0"
         class="mb-4"
@@ -182,7 +178,6 @@ async function handleCreateChat() {
           default-open
         />
       </div>
-
       <div
         v-if="olderChats.length > 0"
         class="mb-4"
@@ -194,7 +189,6 @@ async function handleCreateChat() {
             Older
           </h2>
         </div>
-
         <UNavigationMenu
           orientation="vertical"
           class="w-full mb-4"
@@ -203,7 +197,6 @@ async function handleCreateChat() {
         />
       </div>
     </div>
-
     <div
       v-else
       class="overflow-y-auto p-4"
@@ -228,7 +221,3 @@ async function handleCreateChat() {
     </div>
   </aside>
 </template>
-
-<style scoped>
-
-</style>

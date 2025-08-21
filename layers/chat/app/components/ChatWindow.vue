@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ChatMessage, Chat } from '#layers/chat/app/types';
+import type { ChatMessage, Chat } from '#layers/chat/shared/types/types';
 import MarkdownRenderer from '#layers/base/app/components/MarkdownRenderer.vue';
 
 const props = defineProps<{

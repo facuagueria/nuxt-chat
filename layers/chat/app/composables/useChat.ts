@@ -1,5 +1,3 @@
-import type { ChatMessage } from '#layers/chat/app/types';
-
 export default function useChat(chatId: string) {
   const { chats } = useChats();
   const chat = computed(() => chats.value.find(chat => chat.id === chatId));
@@ -12,6 +10,8 @@ export default function useChat(chatId: string) {
       id,
       role,
       content: message,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
   }
 

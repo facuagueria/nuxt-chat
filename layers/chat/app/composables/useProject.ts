@@ -1,5 +1,4 @@
 import useProjects from '#layers/chat/app/composables/useProjects';
-import type { Project } from '#layers/chat/app/types';
 
 export default function useProject(projectId: string) {
   const { projects } = useProjects();
