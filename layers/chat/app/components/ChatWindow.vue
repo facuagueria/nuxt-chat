@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { ChatMessage, Chat } from '#layers/chat/shared/types/types';
 import MarkdownRenderer from '#layers/base/app/components/MarkdownRenderer.vue';
+import TypewriterText from '#layers/base/app/components/TypewriterText.vue';
 
 const props = defineProps<{
   messages: ChatMessage[];
@@ -39,7 +40,7 @@ watch(() => props.messages, pinToBottom, { deep: true });
       <template v-else>
         <div class="chat-header">
           <h1 class="title">
-            {{ chat?.title || "Untitled Chat" }}
+            <TypewriterText :text="chat.title || 'Untitled Chat'" />
           </h1>
         </div>
         <div class="messages-container">
