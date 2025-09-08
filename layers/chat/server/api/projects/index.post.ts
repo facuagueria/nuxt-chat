@@ -1,8 +1,13 @@
 import type { H3Event } from 'h3';
 import { createProject } from '#layers/chat/server/repository/projectRepository';
+import { CreateProjectSchema } from '#layers/chat/server/schemas';
 
 export default defineEventHandler(async (event: H3Event) => {
-  const { name } = await readBody(event);
+  const { success, data } = await readValidatedBody(event, CreateProjectSchema.safeParse);
 
-  return await createProject({ name });
+  if (!success) {
+    return 400;
+  }
+
+  return await createProject(data);
 });

@@ -1,8 +1,15 @@
 import type { H3Event } from 'h3';
 import { createChat } from '#layers/chat/server/repository/chatRepository';
+import { CreateChatSchema } from '#layers/chat/server/schemas';
 
 export default defineEventHandler(async (event: H3Event) => {
-  const { title, projectId } = await readBody(event);
+  const { success, data } = await readValidatedBody(event, CreateChatSchema.safeParse);
+
+  if (!success) {
+    return 400;
+  }
+
+  const { title, projectId } = data;
 
   const storage = useStorage('db');
 

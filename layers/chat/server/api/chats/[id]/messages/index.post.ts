@@ -1,13 +1,18 @@
 import type { H3Event } from 'h3';
 import { createMessageForChat } from '#layers/chat/server/repository/chatRepository';
+import { CreateMessageSchema } from '#layers/chat/server/schemas';
 
 export default defineEventHandler(async (event: H3Event) => {
   const { id } = getRouterParams(event);
-  const body = await readBody(event);
+  const { success, data } = await readValidatedBody(event, CreateMessageSchema.safeParse);
+
+  if (!success) {
+    return 400;
+  }
 
   return createMessageForChat({
     chatId: id,
-    content: body.content,
-    role: body.role,
+    content: data.content,
+    role: data.role,
   });
 });
