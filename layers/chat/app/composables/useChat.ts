@@ -17,12 +17,14 @@ export default function useChat(chatId: string) {
   );
 
   async function fetchMessages({ refresh = false }: { refresh?: boolean } = {}) {
-    if (
-      (!refresh && status.value !== 'idle')
-      || !chat.value
-    ) {
+    const hasExistingMessages = messages.value.length > 1;
+    const isRequestInProgress = status.value !== 'idle';
+    const shouldSkipDueToExistingState = !refresh && (hasExistingMessages || isRequestInProgress);
+
+    if (shouldSkipDueToExistingState || !chat.value) {
       return;
     }
+
     await execute();
     chat.value.messages = data.value;
   }
