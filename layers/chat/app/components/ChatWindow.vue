@@ -17,6 +17,19 @@ function handleSendMessage(message: string) {
 }
 
 watch(() => props.messages, pinToBottom, { deep: true });
+
+const route = useRoute();
+const isOnProjectPage = computed(() => !!route.params.projectId);
+
+const isAssignModalOpen = ref(false);
+
+function openAssignModal() {
+  isAssignModalOpen.value = true;
+}
+
+function closeAssignModal() {
+  isAssignModalOpen.value = false;
+}
 </script>
 
 <template>
@@ -42,6 +55,17 @@ watch(() => props.messages, pinToBottom, { deep: true });
           <h1 class="title">
             <TypewriterText :text="chat.title || 'Untitled Chat'" />
           </h1>
+
+          <UButton
+            v-if="!isOnProjectPage"
+            color="neutral"
+            variant="soft"
+            icon="i-heroicons-folder-plus"
+            size="sm"
+            @click="openAssignModal"
+          >
+            Assign to Project
+          </UButton>
         </div>
         <div class="messages-container">
           <div
@@ -80,6 +104,12 @@ watch(() => props.messages, pinToBottom, { deep: true });
         </div>
       </template>
     </UContainer>
+
+    <LazyAssignToProjectModal
+      v-if="isAssignModalOpen"
+      :chat-id="chat.id"
+      @close="closeAssignModal"
+    />
   </div>
 </template>
 
