@@ -3,3 +3,5 @@ ignoredBuiltDependencies:
   - esbuild
   - sharp
   - vue-demi
+  - '@prisma/client'
+  - '@prisma/engines'
