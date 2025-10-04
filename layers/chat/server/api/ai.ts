@@ -6,7 +6,10 @@ export default defineEventHandler(async (event) => {
   const { success, data } = body;
 
   if (!success) {
-    return 400;
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'Bad Request',
+    });
   }
 
   const { messages } = data as {

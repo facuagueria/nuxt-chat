@@ -7,7 +7,10 @@ export default defineEventHandler(async (event: H3Event) => {
   const { success, data } = await readValidatedBody(event, UpdateProjectSchema.safeParse);
 
   if (!success) {
-    return 400;
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'Bad Request',
+    });
   }
 
   const project = await getProjectById(id);
