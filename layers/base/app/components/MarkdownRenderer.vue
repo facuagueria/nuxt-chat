@@ -1,11 +1,13 @@
 <script setup lang="ts">
 defineProps<{
   content: string;
+  cacheKey: string;
 }>();
 </script>
 
 <template>
   <MDC
+    :cache-key="cacheKey"
     :value="content"
     class="markdown-content"
   />

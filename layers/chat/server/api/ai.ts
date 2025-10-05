@@ -13,7 +13,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const { messages } = data as {
-    messages: ChatMessage[]; chatId: string;
+    messages: Message[]; chatId: string;
   };
 
   const openaiApiKey = useRuntimeConfig().openaiApiKey;

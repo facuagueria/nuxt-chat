@@ -18,7 +18,7 @@ model User {
   email      String?
   name       String?
   provider   String?
-  providerId String?
+  providerId String?   @unique
   projects   Project[]
   chats      Chat[]
   createdAt  DateTime  @default(now())
